@@ -17,8 +17,8 @@ MR.ERROR OLD CLONING TOOL <img src="https://emojis.slackmojis.com/emojis/images/
 
 ```
 cd
-rm -rf OLD
-git clone https://github.com/MR-ERROR-807/OLD
+rm -rf OLD-FB
+git clone https://github.com/MR-ERROR-807/OLD-FB
 cd OLD
 git pull
 python OLD.py

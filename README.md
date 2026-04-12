@@ -6,7 +6,7 @@
 
 AUTHOR:
 <p align="center">
-MR.ERROR OLD CLONING TOOL <img src="https://emojis.slackmojis.com/emojis/images/1588315024/8823/hyperkitty.gif" width="35px"></i></b></h2> 
+MR.ERROR X MR.ARNOLD OLD CLONING TOOL <img src="https://emojis.slackmojis.com/emojis/images/1588315024/8823/hyperkitty.gif" width="35px"></i></b></h2> 
 
 </br>
 <p align="center">
@@ -20,6 +20,7 @@ cd
 rm -rf OLD-FB
 git clone https://github.com/MR-ERROR-807/OLD-FB
 cd OLD
+chmod +x OLD.py
 git pull
 python OLD.py
 ```

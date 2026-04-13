@@ -19,7 +19,7 @@ MR.ERROR X MR.ARNOLD OLD CLONING TOOL <img src="https://emojis.slackmojis.com/em
 cd
 rm -rf OLD-FB
 git clone https://github.com/MR-ERROR-807/OLD-FB
-cd OLD
+cd OLD-FB
 chmod +x OLD
 git pull
 ./OLD

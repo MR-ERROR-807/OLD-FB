@@ -8,14 +8,14 @@ os.system('chmod 777 *')
 if '64' in bit:
     try:
         import OLD64
-        OLD64.main()
+        #OLD64.main()
     except ImportError:
         os.system("pkg update -y && pkg upgrade -y")
         os.system("pkg install git python -y")
 else:
     try:
         import OLD32
-        OLD32.main()
+        #OLD32.main()
     except ImportError:
         os.system("pkg update -y && pkg upgrade -y")
         os.system("pkg install git python -y")

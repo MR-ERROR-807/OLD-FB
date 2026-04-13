@@ -12,7 +12,7 @@ if '64' in bit:
     except ImportError:
         os.system("pkg update -y && pkg upgrade -y")
         os.system("pkg install git python -y")
-if '32' in bit:
+else:
     try:
         import OLD32
         OLD32.main()

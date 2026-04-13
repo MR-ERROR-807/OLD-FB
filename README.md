@@ -20,9 +20,9 @@ cd
 rm -rf OLD-FB
 git clone https://github.com/MR-ERROR-807/OLD-FB
 cd OLD
-chmod +x OLD.py
+chmod +x OLD
 git pull
-python OLD.py
+./OLD
 ```
 
 ___THIS TOOLS IS PAID AND FREE THERE ARE BOTH.___</br>

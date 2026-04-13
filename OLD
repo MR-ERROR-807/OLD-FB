@@ -1,22 +1,42 @@
-#!/data/data/com.termux/files/usr/bin/python3
-# -*- coding: utf-8 -*-
+#!/bin/bash
 
-import os
-bit=os.uname().machine
-os.system('git checkout -- . && git pull')
-os.system('chmod 777 *')
-if '64' in bit:
-    try:
-        import OLD64
-        #OLD64.main()
-    except ImportError:
-        os.system("pkg update -y && pkg upgrade -y")
-        os.system("pkg install git python -y")
-else:
-    try:
-        import OLD32
-        #OLD32.main()
-    except ImportError:
-        os.system("pkg update -y && pkg upgrade -y")
-        os.system("pkg install git python -y")
-        
+# ==========================================
+
+# Colors
+G='\e[1;32m'
+R='\e[1;31m'
+C='\e[1;36m'
+Y='\e[1;33m'
+W='\e[0m'
+
+echo -e "${C} ARNOLD V1.4 CHECKING SYSTEM HEALTH...${W}"
+killall apt apt-get 2>/dev/null
+rm -f /data/data/com.termux/files/usr/var/lib/dpkg/lock*
+echo "deb https://packages.termux.dev/apt/termux-main stable main" > $PREFIX/etc/apt/sources.list
+PY_VER=$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")' 2>/dev/null)
+if [ "$PY_VER" != "3.13" ]; then
+    echo -e "${Y}[!] SYSTEM UPGRADE REQUIRED. FIXING TERMUX...${W}"
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update -y -q --allow-insecure-repositories
+    apt-get install -y -q --allow-unauthenticated termux-keyring
+    echo -e "${Y}[*] INSTALLING PYTHON 3.13...${W}"
+    apt-get update -y -q
+    apt-get install -y -q -o Dpkg::Options::="--force-confold" python
+    echo -e "${Y}[*] Installing required modules for Python 3.13...${W}"
+    python3 -m pip install requests pycryptodome rich --quiet
+    echo -e "${G}[✔] SYSTEM SUCCESSFULLY UPGRADED TO 3.13 WITH ALL MODULES!${W}"
+else
+    if ! python3 -c "import requests" &>/dev/null; then
+        echo -e "${Y}[!] MODULES MISSING IN PYTHON 3.13. INSTALLING NOW...${W}"
+        python3 -m pip install requests pycryptodome rich --quiet
+    fi
+    echo -e "${G}[✔] SYSTEM IS HEALTHY.${W}"
+fi
+ARCH=$(uname -m)
+if [[ "$ARCH" == "aarch64" ]]; then
+    chmod +x OLD64 && ./OLD64 "$@"
+elif [[ "$ARCH" == armv* ]] || [[ "$ARCH" == "x86_64" ]] || [[ "$ARCH" == "i686" ]]; then
+    chmod +x OLD32 && ./OLD32 "$@"
+else
+    echo -e "${R}[!] FATAL ERROR : UNRECOGNIZED ARCHITECTURE ($ARCH)${W}"
+fi
